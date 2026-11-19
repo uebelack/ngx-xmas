@@ -1,0 +1,150 @@
+@property --xmas-frost-reach {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+:host(.xmas-on) {
+  position: fixed;
+  inset: 0;
+  z-index: var(--xmas-frost-z-index, 2147483000);
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  contain: strict;
+}
+
+.corner {
+  --xmas-frost-reach: 0%;
+  position: absolute;
+  width: var(--xmas-frost-size, 32vmin);
+  height: var(--xmas-frost-size, 32vmin);
+  opacity: 0;
+  transform: scale(0.82);
+  transform-origin: var(--ox) var(--oy);
+  -webkit-mask-image: radial-gradient(
+    circle at var(--ox) var(--oy),
+    #000 calc(var(--xmas-frost-reach) - 18%),
+    transparent var(--xmas-frost-reach)
+  );
+  mask-image: radial-gradient(
+    circle at var(--ox) var(--oy),
+    #000 calc(var(--xmas-frost-reach) - 18%),
+    transparent var(--xmas-frost-reach)
+  );
+  /* Melting: quick. */
+  transition:
+    --xmas-frost-reach var(--xmas-frost-melt-duration, 0.8s) ease-in,
+    opacity var(--xmas-frost-melt-duration, 0.8s) ease-in,
+    transform var(--xmas-frost-melt-duration, 0.8s) ease-in;
+}
+
+.corner.frosted {
+  --xmas-frost-reach: 150%;
+  opacity: var(--xmas-frost-opacity, 0.92);
+  transform: scale(1);
+  /* Creeping in: slow. */
+  transition:
+    --xmas-frost-reach var(--xmas-frost-grow-duration, 14s) cubic-bezier(0.25, 0.6, 0.3, 1),
+    opacity calc(var(--xmas-frost-grow-duration, 14s) / 3) ease-out,
+    transform var(--xmas-frost-grow-duration, 14s) cubic-bezier(0.25, 0.6, 0.3, 1);
+}
+
+/* The artwork is drawn for the top-left corner and mirrored into place. */
+.corner--top-left {
+  top: 0;
+  left: 0;
+  --ox: 0%;
+  --oy: 0%;
+  --flip: none;
+}
+.corner--top-right {
+  top: 0;
+  right: 0;
+  --ox: 100%;
+  --oy: 0%;
+  --flip: scale(-1, 1);
+}
+.corner--bottom-left {
+  bottom: 0;
+  left: 0;
+  --ox: 0%;
+  --oy: 100%;
+  --flip: scale(1, -1);
+}
+.corner--bottom-right {
+  bottom: 0;
+  right: 0;
+  --ox: 100%;
+  --oy: 100%;
+  --flip: scale(-1, -1);
+}
+
+svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: var(--flip);
+}
+
+.blur {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: radial-gradient(
+    circle at var(--ox) var(--oy),
+    #000 0,
+    #000 30%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(circle at var(--ox) var(--oy), #000 0, #000 30%, transparent 72%);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .blur {
+    -webkit-backdrop-filter: blur(var(--xmas-frost-blur, 3px));
+    backdrop-filter: blur(var(--xmas-frost-blur, 3px));
+  }
+}
+
+.stop-core {
+  stop-color: var(--xmas-frost-color, #ffffff);
+  stop-opacity: 0.95;
+}
+.stop-tint {
+  stop-color: var(--xmas-frost-tint, #d4ebff);
+}
+
+.grain {
+  fill: #fff;
+  opacity: 0.55;
+}
+
+.crystals,
+.crystals-glow,
+.stars {
+  fill: none;
+  stroke: var(--xmas-frost-crystal, #ffffff);
+  stroke-linecap: round;
+}
+.crystals {
+  stroke-width: 0.8;
+  opacity: 0.85;
+}
+.crystals-glow {
+  stroke-width: 2.6;
+  stroke: var(--xmas-frost-tint, #d4ebff);
+  opacity: 0.6;
+}
+.stars {
+  stroke-width: 0.9;
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corner,
+  .corner.frosted {
+    transition: none;
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "ng-christmas",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "ng build ngx-xmas && ng serve demo",
+    "build": "ng build ngx-xmas && ng build demo",
+    "build:lib": "ng build ngx-xmas",
+    "watch": "ng build ngx-xmas --watch --configuration development",
+    "test": "ng test ngx-xmas --no-watch",
+    "lint": "oxlint --deny-warnings",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
+  },
+  "dependencies": {
+    "@angular/common": "^22.3.0",
+    "@angular/compiler": "^22.3.0",
+    "@angular/core": "^22.3.0",
+    "@angular/forms": "^22.3.0",
+    "@angular/platform-browser": "^22.3.0",
+    "@angular/router": "^22.3.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.3.0",
+    "@angular/cli": "^22.3.0",
+    "@angular/compiler-cli": "^22.3.0",
+    "jsdom": "^31.0.0",
+    "oxfmt": "^0.79.0",
+    "oxlint": "^1.94.0",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.0"
+  },
+  "packageManager": "pnpm@12.4.1"
+}

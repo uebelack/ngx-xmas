@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "vitest"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "warn"
+  },
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "warn",
+    "no-console": [
+      "error",
+      {
+        "allow": ["error"]
+      }
+    ],
+    "eqeqeq": "error",
+    "no-var": "error",
+    "prefer-const": "error"
+  },
+  "ignorePatterns": ["dist/**", "out-tsc/**", ".angular/**", "coverage/**"],
+  "overrides": [
+    {
+      "files": ["**/*.spec.ts", "**/testing/**"],
+      "rules": {
+        "typescript/no-non-null-assertion": "off",
+        "no-await-in-loop": "off"
+      }
+    }
+  ]
+}

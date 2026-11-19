@@ -1,0 +1,23 @@
+{
+  "name": "ngx-xmas",
+  "version": "0.1.0",
+  "description": "Christmas easter eggs for Angular apps: Santa hat overlay, idle frost, and a Santa fly-by. Active only in the Christmas season.",
+  "keywords": [
+    "angular",
+    "christmas",
+    "easter-egg",
+    "santa",
+    "signals",
+    "standalone",
+    "xmas"
+  ],
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/public-api.ts"
+  },
+  "peerDependencies": {
+    "@angular/common": "^22.3.0",
+    "@angular/core": "^22.3.0"
+  }
+}

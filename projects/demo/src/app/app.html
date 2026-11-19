@@ -1,5 +1,3 @@
-<xmas-frost [mode]="frostMode()" [idleTimeout]="idleTimeout()" maxSize="34vmin" />
-
 <header class="nav">
   <a class="logo" href="#" aria-label="Ledgerline home">
     <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
@@ -14,9 +12,7 @@
       />
     </svg>
     <span>Ledgerline</span>
-    <xmas-overlay top="-17px" left="-11px" width="36px" rotate="-22" zIndex="2">
-      <xmas-santa-hat />
-    </xmas-overlay>
+    <xmas-logo top="-17px" left="-11px" width="36px" rotate="-22deg" />
   </a>
   <nav class="links" aria-label="Main">
     <a href="#" class="current">Dashboard</a>
@@ -25,15 +21,7 @@
     <a href="#">Reports</a>
   </nav>
   <div class="user">DU</div>
-  <xmas-santa
-    [minInterval]="20000"
-    [maxInterval]="45000"
-    [duration]="9000"
-    [direction]="direction()"
-    [variantProbability]="alwaysVariant() ? 1 : 1 / 50"
-    (flightEnd)="flights.set(flights() + 1)"
-    (presentDropped)="presents.set(presents() + 1)"
-  />
+  <xmas-santa [minInterval]="20000" [maxInterval]="45000" />
 </header>
 
 <main class="page">
@@ -93,136 +81,10 @@
 
   <aside class="card controls" aria-label="Demo controls">
     <h2>ngx-xmas demo</h2>
-
-    <div class="status" [class.on]="season.active()">
-      <span class="dot"></span>
-      <div>
-        <strong
-          >{{ season.active() ? 'Christmas mode active' : 'Inactive — nothing rendered' }}</strong
-        >
-        <small
-          >{{ todayLabel() }} · in season: {{ season.inSeason() ? 'yes' : 'no' }} · sled: {{ cargo()
-          }}</small
-        >
-      </div>
-    </div>
-
-    <fieldset>
-      <legend>Clock</legend>
-      <label class="row">
-        <span>Date</span>
-        <input type="date" [value]="dateValue()" (change)="setDate($any($event.target).value)" />
-      </label>
-      <div class="chips">
-        @for (q of quickDates; track q.label) {
-        <button type="button" class="chip" (click)="setQuickDate(q.month, q.day)">
-          {{ q.label }}
-        </button>
-        }
-        <button
-          type="button"
-          class="chip ghost"
-          (click)="state.date.set(null)"
-          [disabled]="!state.date()"
-        >
-          Real date
-        </button>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Season</legend>
-      <label class="check">
-        <input
-          type="checkbox"
-          [checked]="state.forceActive()"
-          (change)="state.forceActive.set($any($event.target).checked)"
-        />
-        <span><code>forceActive</code></span>
-      </label>
-      <label class="check">
-        <input
-          type="checkbox"
-          [checked]="state.enabled()"
-          (change)="state.enabled.set($any($event.target).checked)"
-        />
-        <span><code>enabled</code> (kill switch)</span>
-      </label>
-    </fieldset>
-
-    <fieldset>
-      <legend>Santa</legend>
-      <div class="row">
-        <button
-          type="button"
-          class="primary"
-          (click)="fly()"
-          [disabled]="!season.active() || reducedMotion"
-        >
-          Fly now
-        </button>
-        <select
-          [value]="direction()"
-          (change)="direction.set($any($event.target).value)"
-          aria-label="Direction"
-        >
-          <option value="random">random</option>
-          <option value="ltr">left → right</option>
-          <option value="rtl">right → left</option>
-        </select>
-      </div>
-      <label class="check">
-        <input
-          type="checkbox"
-          [checked]="alwaysVariant()"
-          (change)="alwaysVariant.set($any($event.target).checked)"
-        />
-        <span>Always use a rare variant</span>
-      </label>
-      <p class="hint">
-        Click Santa to drop a present. Flights: {{ flights() }} · presents dropped: {{ presents() }}
-      </p>
-    </fieldset>
-
-    <fieldset>
-      <legend>Frost</legend>
-      <div class="segmented" role="radiogroup" aria-label="Frost mode">
-        <button
-          type="button"
-          [class.selected]="frostMode() === 'idle'"
-          (click)="frostMode.set('idle')"
-        >
-          idle
-        </button>
-        <button
-          type="button"
-          [class.selected]="frostMode() === 'static'"
-          (click)="frostMode.set('static')"
-        >
-          static
-        </button>
-      </div>
-      @if (frostMode() === 'idle') {
-      <label class="row">
-        <span>Idle after</span>
-        <select [value]="idleTimeout()" (change)="idleTimeout.set(+$any($event.target).value)">
-          <option [value]="3000">3 s</option>
-          <option [value]="10000">10 s</option>
-          <option [value]="60000">60 s (default)</option>
-        </select>
-      </label>
-      <p class="hint">
-        Keep your hands still to see the frost creep in, then move the mouse to melt it.
-      </p>
-      }
-    </fieldset>
-
-    <p class="motion" [class.reduced]="reducedMotion">
-      @if (reducedMotion) {
-      <strong>Reduced motion is on.</strong> Santa stays grounded and frost appears without creeping
-      in. } @else { Tip: enable “Reduce motion” in your OS settings (or emulate
-      <code>prefers-reduced-motion</code> in DevTools) — Santa stays grounded and frost stops
-      animating. }
+    <p class="hint">
+      @if (december) { Santa flies through the nav bar every 20–45 seconds. } @else { Both
+      components are only visible in December. }
     </p>
+    <button type="button" class="primary" (click)="fly()" [disabled]="!december">Fly now</button>
   </aside>
 </main>

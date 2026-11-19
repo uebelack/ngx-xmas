@@ -1,6 +1,7 @@
 # ng-christmas
 
-pnpm workspace with the [`ngx-xmas`](projects/ngx-xmas/README.md) Angular library and a demo app.
+pnpm workspace with the [`ngx-xmas`](projects/ngx-xmas/README.md) Angular components (`<xmas-logo>`
+and `<xmas-santa>`) and a demo app.
 
 | Path                | What                                        |
 | ------------------- | ------------------------------------------- |
